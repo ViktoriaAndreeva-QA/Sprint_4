@@ -60,3 +60,4 @@ py -m pytest tests.py -v
 
 ## Запуск с измерением покрытия:
 py -m pytest tests.py -v --cov=.
+
