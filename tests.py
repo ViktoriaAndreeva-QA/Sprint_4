@@ -10,6 +10,21 @@ class TestBooksCollector:
     # напиши свои тесты ниже
     # чтобы тесты были независимыми в каждом из них создавай отдельный экземпляр класса BooksCollector()
 
+# тест для проверки добавления книг с минимальной (1), нормальной(9) и максимальной(40) валидной длиной названия книги
+    @pytest.mark.parametrize('book_name', [
+        'Я',
+        'Тихий дон',
+        'Преступление и наказание: версия текста.'
+    ])
+    def test_add_new_book_with_names_min_1_normal_9_max_40_length_added_books(self, book_name):
+        collector = BooksCollector()
+
+        collector.add_new_book(book_name)
+
+        assert len(collector.books_genre) == 1
+        assert book_name in collector.books_genre
+        assert collector.books_genre[book_name] == ''
+
 # тест для проверки НЕвозможности добавления дубликата книги
     def test_add_new_book_duplicate_not_added(self):
         collector = BooksCollector()
@@ -201,7 +216,6 @@ class TestBooksCollector:
 
         for book_name, genre in books:
             collector.add_new_book(book_name)
-            collector.set_book_genre(book_name, genre)
 
         collector.add_book_in_favorites('Рататуй')
         collector.add_book_in_favorites('Пила')
@@ -216,7 +230,6 @@ class TestBooksCollector:
         collector = BooksCollector()
 
         collector.add_new_book('Десять негритят')
-        collector.set_book_genre('Десять негритят', 'Детективы')
 
         collector.add_book_in_favorites('Десять негритят')
         collector.add_book_in_favorites('Десять негритят')
@@ -257,7 +270,6 @@ class TestBooksCollector:
 
         for book_name, genre in books:
             collector.add_new_book(book_name)
-            collector.set_book_genre(book_name, genre)
             collector.add_book_in_favorites(book_name)
             expected_books.append(book_name)
 
